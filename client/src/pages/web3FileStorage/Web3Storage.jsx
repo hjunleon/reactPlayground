@@ -1,6 +1,7 @@
 import "./Web3Storage.scss";
 import Topbar from "../../components/topbar/Topbar";
 import SearchBar from "../../components/searchBar/SearchBar";
+import FileUploader from "../../components/fileUploader/FileUploader";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -12,10 +13,20 @@ import { Web3Storage } from "web3.storage/dist/bundle.esm.min.js";
 // const client = new Web3Storage({ token: web3FileStorageToken });
 
 export default function Storage() {
-  const [formInput, setFormInput] = useState({
-    fileName: "",
-    fileBlob: null,
-  });
+  //   const [formInput, setFormInput] = useState({
+  //     fileName: "",
+  //     originalFileName: "",
+  //     fileBlob: null,
+  //   });
+    console.log('WEB3_STORAGE_API_TOKEN',process.env.WEB3_STORAGE_API_TOKEN)
+  const [name, setName] = useState("");
+
+  const [selectedFileNames, setSelectedFileNames] = useState([
+    "test1",
+    "test2",
+  ]);
+
+  const [selectedFile, setSelectedFile] = useState(null);
 
   function getAccessToken() {
     // If you're just testing, you can paste in a token
@@ -35,7 +46,13 @@ export default function Storage() {
 
   function getFiles(inputFieldElem) {
     // const fileInput = document.querySelector('input[type="file"]')
-    return inputFieldElem.files;
+    let files = [];
+    let fileListLen = inputFieldElem.files.length;
+    for (let i = 0; i < fileListLen; i += 1) {
+      files.push(inputFieldElem.files[i]);
+    }
+
+    return files;
   }
 
   const storeFiles = async (files) => {
@@ -69,35 +86,38 @@ export default function Storage() {
     return client.put(files, { onRootCidReady, onStoredChunk });
   }
 
-  const handleChange = (e) => {
-    console.log(e.target);
-    let field = e.target.name;
-    let data = e.target.value;
-    if (field == "fileBlob") {
-      data = getFiles(e.target);
-    }
-    console.log(data);
-    // setFormInput((obj) => ({
-    //   formInputs: {
-    //     ...obj.formInputs,
-    //     [field]:data
-    //   },
-    // }));
-    console.log({ ...formInput });
-    // console.log()
-    let finalState = {
-      ...formInput,
-      [field]: data,
-    };
-    console.log(finalState);
-    setFormInput(prevState => ({
-        ...prevState,
-        [field]: data
-    }));
-  };
+  //   const handleChange = (e) => {
+  //     console.log(e.target);
+  //     let field = e.target.name;
+  //     let data = e.target.value;
+  //     if (field == "fileBlob") {
+  //       data = getFiles(e.target);
+  //     }
+  //     console.log(data);
+  //     // setFormInput((obj) => ({
+  //     //   formInputs: {
+  //     //     ...obj.formInputs,
+  //     //     [field]:data
+  //     //   },
+  //     // }));
+  //     console.log({ ...formInput });
+  //     // console.log()
+  //     let finalState = {
+  //       ...formInput,
+  //       [field]: data,
+  //     };
+  //     console.log(finalState);
+  //     setFormInput(prevState => ({
+  //         ...prevState,
+  //         [field]: data
+  //     }));
+  //   };
+
 
   const handleSubmit = (e) => {
     console.log(e);
+    storeWithProgress(selectedFile)
+
   };
 
   return (
@@ -105,27 +125,34 @@ export default function Storage() {
       <Topbar />
       <div className="standardFormWrap">
         <div className="standardForm">
-          <label>
-            Upload file here:
-            <input
-              type="file"
-              name="fileBlob"
-              value=""
-              onChange={handleChange}
-            />
-          </label>
-          <label for="fileName">
-            File Name:
-            <input
-              type="text"
-              name="fileName"
-              value={formInput.fileName}
-              onChange={handleChange}
-            />
-          </label>
-          <div className="web3Btn" onClick={handleSubmit}>
-            Upload
-          </div>
+          <form>
+            <label>
+              Upload file here:
+              {/* <input
+                type="file"
+                name="fileBlob"
+                value={selectedFileNames.join(",")}
+                onChange={handleFileInput}
+              /> */}
+              <FileUploader
+                onFileSelectSuccess={(file) => setSelectedFile(file)}
+                onFileSelectError={({ error }) => alert(error)}
+                MBLimit={20}
+              />
+            </label>
+            <label for="fileName">
+              File Name:
+              <input
+                type="text"
+                name="fileName"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </label>
+            <div className="web3Btn" onClick={handleSubmit}>
+              Upload
+            </div>
+          </form>
         </div>
       </div>
     </div>

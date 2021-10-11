@@ -29,7 +29,7 @@ export const loadGoogleScript = () => {
 // Client ID and API key from the Developer Console
 var CLIENT_ID =
   process.env.REACT_APP_GOOGLE_CLIENT_ID ||
-  "98830469052-6i7a3frsof34asfktp34hviovlsh4apn.apps.googleusercontent.com";
+  "";
 console.log(CLIENT_ID);
 var API_KEY = ""; //'AIzaSyDey5ZAN7LkdwY7plFwLbbsLe7bZ-coo-w';
 
