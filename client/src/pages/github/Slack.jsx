@@ -36,27 +36,7 @@ export default function Slack() {
   }]], ["yourId", null]])
   console.log("slackData: ")
   console.log(slackData)
-    //const [slackData,setSlackData] = useState()
-// API call (which shouldn't be here but whatever)
-const getConvoList = async () => {
-    // try {
-        const res = await axios.get("https://slack.com/api/conversations.list",{
-        headers:{
-            'Authorization': 'Bearer xoxp-261563897047-1529974447411-2525808007733-05dfbfffa58f05d32698505ce200bbca',
-            'Content-type': 'application/x-www-form-urlencoded',
-        }
-        }).then(res => {
-            console.log("success =========", res)
-        }).catch(err =>{
-            console.log("Error ========>", err);
-        });
-        
-    // }
-    // catch(err) {
-    //     console.log(err)
-    // }   
-  };
-
+  
 const authMe = () =>{
     let oauthUrl = encodeURI(`https://slack.com/oauth/v2/authorize?client_id=${CLIENT_ID}&scope=${scope.join(',')}&redirect_uri=${redirect_uri}`)
     console.log(oauthUrl)
