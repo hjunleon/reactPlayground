@@ -1,0 +1,145 @@
+//https://stackoverflow.com/questions/33404855/reusable-block-with-nested-elements-scss
+@mixin genericCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin verticallyCenter() {
+  display: flex;
+  align-items: center;
+}
+@mixin centerAlignRight(){
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+body {
+  //overflow: hidden;
+}
+
+.Mailbox {
+  height: 100vh;
+}
+
+.activeProfilePic{
+    cursor: pointer;
+    position: relative;
+    height: 24px;
+    width: 24px;
+}
+
+
+//seems like bad practice to not define a specfiic fixed height and let the contents fill it
+.mbTopBar {
+  width: 100%;
+  padding: 8px 0px;
+  $mbTopBar-left: 70%;
+  @include genericCenter();
+  .mbTopBar-left {
+    display: flex;
+    width: $mbTopBar-left;
+    @include genericCenter();
+  }
+  .mbTopBar-right {
+    width: 100% - $mbTopBar-left;
+    text-align: right;
+    @include centerAlignRight();
+    padding-right: 16px;
+  }
+}
+$mbSidebar-width: 15%;
+.mbMain {
+  height: 100%;
+  @include genericCenter();
+  .mbSideBar {
+    background-color: azure;
+    width: $mbSidebar-width;
+    height: 100%;
+  }
+  .mbContentWrap {
+    background-color: pink;
+    width: 100% - $mbSidebar-width;
+    height: 100%;
+    .mbContentWrap__secondBar {
+      width: 100%;
+      height: 48px;
+      background-color: bisque;
+      @include verticallyCenter();
+      $leftSection-width: 15%;
+      div {
+        height: 100%;
+      }
+      .mbContentWrap__secondBar-left {
+        //width:$leftSection-width;
+        background-color: brown;
+        padding: 0px 16px;
+        display: flex;
+        align-items: center;
+        .selectorWrap {
+          @include genericCenter();
+          width: 40px;
+          height: 20px;
+          .selectorCheckbox {
+            border: 2px solid white;
+            border-radius: 4px;
+          }
+          div {
+            height: 20px;
+            width: 20px;
+            @include genericCenter();
+          }
+        }
+        .checkmark {
+          background: url(//ssl.gstatic.com/ui/v1/menu/checkmark.png) no-repeat -2px;
+        }
+        .dropdown {
+          background-image: url("https://www.gstatic.com/images/icons/material/system/1x/arrow_drop_down_white_20dp.png");
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 20px;
+        }
+      }
+      .mbContentWrap__secondBar-right {
+        width: 100%-$leftSection-width;
+      }
+    }
+
+    .mbContentWrap__filterBar {
+      width: 100%;
+      height: 48px;
+      @include verticallyCenter();
+      .mbContentWrap__filter {
+        width: 253px;
+        height: 100%;
+        @include genericCenter();
+      }
+      .active {
+        background-color: cornflowerblue;   
+        color: white;
+      }
+    }
+  }
+}
+
+
+.mailItem{
+  @include verticallyCenter();
+  div{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  div:nth-child(1){
+    width: 64px;
+  }
+  div:nth-child(2){
+    width: 256px;
+  }
+  div:nth-child(3){
+    width: 128px;
+  }
+  div:nth-child(4){
+    width: 64px;
+  }
+}

@@ -10,8 +10,12 @@ const PostSchema = new mongoose.Schema(
       type: String,
       max: 500,
     },
-    img: {
+    type: {
       type: String,
+      default: "textOnly"
+    },
+    img: {
+      type: String,  //Should be path to the thing
     },
     likes: {
       type: Array,

@@ -10,11 +10,12 @@ const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const conversationRoute = require("./routes/conversations");
 const messageRoute = require("./routes/messages");
+const slackRoute = require("./routes/slack");
 const router = express.Router();
 const path = require("path");
 
 dotenv.config();
-
+console.log(process.env);
 mongoose.connect(
   process.env.MONGO_URL,
   { useNewUrlParser: true, useUnifiedTopology: true },
@@ -52,6 +53,8 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
+app.use("/api/slack", slackRoute);
+
 
 app.listen(8800, () => {
   console.log("Backend server is running!");

@@ -1,0 +1,36 @@
+.standardFormWrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.standardForm{
+    width: 80%;
+    height: 90%;
+    margin: 16px 0;
+    min-width: 640px;
+    min-height: 640px;
+    background: white;
+    box-shadow: 10px 10px 16px #999;
+    padding:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 8px;
+}
+
+$btnColor: cornflowerblue;
+
+.web3Btn{
+    background:$btnColor;
+    color: aliceblue;
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: inline-block;
+    &[data-action="save"] {
+        background:green;
+    }
+    &:hover{
+      background: lighten($btnColor,15%);
+    }
+}
