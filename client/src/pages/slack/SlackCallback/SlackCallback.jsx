@@ -1,8 +1,4 @@
 import "./SlackCallback.scss";
-import Topbar from "../../../components/topbar/Topbar";
-import SearchBar from "../../../components/searchBar/SearchBar";
-import ProfilePicCircle from "../../../components/profilePicCircle/profilePicCircle";
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
@@ -20,11 +16,6 @@ import {
   Inbox,
   Close,
 } from "@material-ui/icons";
-
-let slackScopes = [];
-const CLIENT_ID = "261563897047.2551911311360";
-const redirect_uri = "https://localhost:8888";
-const scope = ["incoming-webhook", "commands"];
 
 let AUTH_CODE = sessionStorage.getItem("slackAuthCode") || "";
 export default function SlackCallback() {

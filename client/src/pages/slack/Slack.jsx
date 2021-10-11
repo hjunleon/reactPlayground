@@ -68,7 +68,7 @@ import {
 // }
 
 let slackScopes = [];
-const CLIENT_ID = "261563897047.2551911311360";
+const CLIENT_ID = process.env.SLACK_CLIENT_ID || "";
 const redirect_uri = "https://localhost:3000/slack/callback";
 const scope = ["incoming-webhook", "commands"];
 
@@ -101,31 +101,6 @@ export default function Slack() {
   // let slackData = ;
   console.log("slackData: ");
   console.log(slackData);
-  //const [slackData,setSlackData] = useState()
-  // API call (which shouldn't be here but whatever)
-  const getConvoList2 = async () => {
-    // try {
-    const res = await axios
-      .get("https://slack.com/api/conversations.list", {
-        headers: {
-          Authorization:
-            "Bearer xoxp-261563897047-1529974447411-2525808007733-05dfbfffa58f05d32698505ce200bbca",
-          "Content-type": "application/x-www-form-urlencoded",
-        },
-      })
-      .then((res) => {
-        console.log("success =========", res);
-      })
-      .catch((err) => {
-        console.log("Error ========>", err);
-      });
-
-    // }
-    // catch(err) {
-    //     console.log(err)
-    // }
-  };
-
   const getConvoList = async () => {
     setSlackAction("convoList")
     const res = await axios
