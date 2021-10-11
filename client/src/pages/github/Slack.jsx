@@ -21,11 +21,6 @@ import {
 } from "@material-ui/icons";
 
 let slackScopes = []
-const CLIENT_ID = '261563897047.2551911311360'
-const redirect_uri='https://localhost:8888'
-const scope = ['incoming-webhook','commands']
-
-
 
 export default function Slack() {
   const [isPoppedUp, setPopUp] = useState(false);
@@ -37,12 +32,6 @@ export default function Slack() {
   console.log("slackData: ")
   console.log(slackData)
   
-const authMe = () =>{
-    let oauthUrl = encodeURI(`https://slack.com/oauth/v2/authorize?client_id=${CLIENT_ID}&scope=${scope.join(',')}&redirect_uri=${redirect_uri}`)
-    console.log(oauthUrl)
-    window.location.href = oauthUrl
-    
-}
 
   // UI =======================
 
