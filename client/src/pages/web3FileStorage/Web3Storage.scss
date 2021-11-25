@@ -1,36 +1,63 @@
-.standardFormWrap{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.standardFormWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.standardForm{
-    width: 80%;
-    height: 90%;
-    margin: 16px 0;
-    min-width: 640px;
-    min-height: 640px;
-    background: white;
-    box-shadow: 10px 10px 16px #999;
-    padding:auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 8px;
+.standardForm {
+  width: 80%;
+  height: 90%;
+  margin: 16px 0;
+  min-width: 640px;
+  min-height: 640px;
+  background: white;
+  box-shadow: 10px 10px 16px #999;
+  padding: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 8px;
 }
 
 $btnColor: cornflowerblue;
 
-.web3Btn{
-    background:$btnColor;
-    color: aliceblue;
-    padding: 8px 16px;
-    border-radius: 8px;
-    display: inline-block;
-    &[data-action="save"] {
-        background:green;
-    }
-    &:hover{
-      background: lighten($btnColor,15%);
-    }
+.web3Btn {
+  background: $btnColor;
+  color: aliceblue;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: inline-block;
+  cursor: pointer;
+  &:hover {
+    background: lighten($btnColor, 15%);
+  }
+}
+
+.circleBtn {
+  background: $btnColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+//   height: 24px;
+//   width: 24px;
+  padding: auto;
+  cursor: pointer;
+  svg{
+      color:white;
+  }
+}
+
+.fileListItem {
+  border-bottom: 1px solid #8c8c8c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px;
+  div{
+    padding: 8px;
+  }
+  .isLast {
+    border: none;
+  }
 }

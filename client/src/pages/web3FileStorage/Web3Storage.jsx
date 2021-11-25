@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { Web3Storage } from "web3.storage/dist/bundle.esm.min.js";
-
+import { getDefaultTime } from "../../lib/uiUtils";
+import { Close } from "@material-ui/icons";
 // const web3FileStorageToken = process.env.WEB3_STORAGE_API_TOKEN;
 // Construct with token and endpoint
 // const client = new Web3Storage({ token: web3FileStorageToken });
@@ -18,7 +19,10 @@ export default function Storage() {
   //     originalFileName: "",
   //     fileBlob: null,
   //   });
-    console.log('WEB3_STORAGE_API_TOKEN',process.env.WEB3_STORAGE_API_TOKEN)
+  console.log(
+    "WEB3_STORAGE_API_TOKEN",
+    process.env.REACT_APP_WEB3_STORAGE_API_TOKEN
+  );
   const [name, setName] = useState("");
 
   const [selectedFileNames, setSelectedFileNames] = useState([
@@ -37,7 +41,7 @@ export default function Storage() {
     // environement variable or other configuration that's kept outside of
     // your code base. For this to work, you need to set the
     // WEB3STORAGE_TOKEN environment variable before you run your code.
-    return process.env.WEB3_STORAGE_API_TOKEN;
+    return process.env.REACT_APP_WEB3_STORAGE_API_TOKEN;
   }
 
   function makeStorageClient() {
@@ -55,12 +59,12 @@ export default function Storage() {
     return files;
   }
 
-  const storeFiles = async (files) => {
-    const client = makeStorageClient();
-    const cid = await client.put(files);
-    console.log("stored files with cid:", cid);
-    return cid;
-  };
+  //   const storeFiles = async (files) => {
+  //     const client = makeStorageClient();
+  //     const cid = await client.put(files);
+  //     console.log("stored files with cid:", cid);
+  //     return cid;
+  //   };
 
   async function storeWithProgress(files) {
     // show the root cid as soon as it's ready
@@ -113,11 +117,33 @@ export default function Storage() {
   //     }));
   //   };
 
-
   const handleSubmit = (e) => {
     console.log(e);
-    storeWithProgress(selectedFile)
+    storeWithProgress(selectedFile);
+  };
 
+  const deleteItem = (e) => {
+    let fileToDelete = e.target.dataset["filename"] || null;
+    if (fileToDelete != null) {
+    }
+  };
+
+  const FileListItem = ({
+    fileName = "untitled",
+    fileSize = "Unknown",
+    isLast = false,
+  }) => {
+      console.log(selectedFile)
+    console.log(fileName, fileSize, isLast);
+    return (
+      <div className={`fileListItem ${isLast ? "isLast" : ""}`}>
+        <div>{fileName}</div>
+        <div>{fileSize}</div>
+        <div data-filename={fileName} onClick={deleteItem} className="circleBtn">
+          <Close />
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -125,22 +151,34 @@ export default function Storage() {
       <Topbar />
       <div className="standardFormWrap">
         <div className="standardForm">
-          <form>
-            <label>
-              Upload file here:
-              {/* <input
+          <label htmlFor="fileBlobs" className="web3Btn">
+            Upload file here:
+            {/* <input
                 type="file"
                 name="fileBlob"
                 value={selectedFileNames.join(",")}
                 onChange={handleFileInput}
               /> */}
-              <FileUploader
-                onFileSelectSuccess={(file) => setSelectedFile(file)}
-                onFileSelectError={({ error }) => alert(error)}
-                MBLimit={20}
+            <FileUploader
+              onFileSelectSuccess={(file) => setSelectedFile(file)}
+              onFileSelectError={({ error }) => alert(error)}
+              MBLimit={20}
+              inputName="fileBlobs"
+            />
+          </label>
+
+          {selectedFile &&
+            Object.keys(selectedFile).length > 0 &&
+            Object.keys(selectedFile).map((p, index) => (
+              <FileListItem
+                key={p._id}
+                fileName={selectedFile[p]["fileName"]}
+                fileSize={selectedFile[p]["size"]}
+                isLast={index == Object.keys(selectedFile).length - 1}
               />
-            </label>
-            <label for="fileName">
+            ))}
+
+          {/* <label htmlFor="fileName">
               File Name:
               <input
                 type="text"
@@ -148,11 +186,10 @@ export default function Storage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-            </label>
-            <div className="web3Btn" onClick={handleSubmit}>
-              Upload
-            </div>
-          </form>
+            </label> */}
+          <div className="web3Btn" onClick={handleSubmit}>
+            Upload
+          </div>
         </div>
       </div>
     </div>
