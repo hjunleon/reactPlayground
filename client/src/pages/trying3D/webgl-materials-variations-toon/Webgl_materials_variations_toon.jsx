@@ -7,6 +7,8 @@ import * as THREE from "three";
 // import * as THREE from "node_modules/three/build/three.js";
 // https://stackoverflow.com/questions/35995261/comicbook-shader-for-real-time-with-three-js-cel-shading
 
+// console.log(Object.keys(THREE));
+
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { MMDLoader } from "three/examples/jsm/loaders/MMDLoader.js";
